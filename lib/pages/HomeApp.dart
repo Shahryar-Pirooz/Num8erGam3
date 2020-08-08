@@ -1,21 +1,9 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:numbergame/src/colors.dart';
 import 'package:numbergame/src/widgets.dart';
 
 import 'CountinkPage.dart';
-
-main() {
-  runApp(MaterialApp(
-    color: MyColors.blue,
-    home: HomeApp(),
-    theme: ThemeData(
-        backgroundColor: MyColors.black,
-        scaffoldBackgroundColor: MyColors.black
-    ),
-  ));
-}
-
 
 class HomeApp extends StatelessWidget {
   @override
