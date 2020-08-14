@@ -12,8 +12,29 @@ class CountinkPage extends StatefulWidget {
 }
 
 class _CountinkPageState extends State<CountinkPage> {
+ final Random random = new Random();
+ final List positionsList = [];
+ List<Widget> widgetsList;
+ List<Map<int,bool>> numberList = new List(12);
+  int firstNumber;
+  int otherNumber;
+
+ @override
+  void initState() {
+   numberList = [
+     {0:false},{0:false},{0:false},
+     {0:false},{0:false},{0:false},
+     {0:false},{0:false},{0:false},
+     {0:false},{0:false},{0:false}
+   ];
+   firstNumber = random.nextInt(99);
+   otherNumber = firstNumber;
+   makeRandomNumberList();
+  }
+
   @override
   Widget build(BuildContext context) {
+   widgetsList = [];
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         if (sizingInformation.deviceScreenType == DeviceScreenType.mobile)
@@ -29,24 +50,6 @@ class _CountinkPageState extends State<CountinkPage> {
   }
 
   Widget mobile(BuildContext context) {
-    var random = new Random();
-    List positionsList = [];
-    List numberList=new List(12);
-    int firstNumber = random.nextInt(99);
-    int otherNumber = firstNumber;
-    // for create random positions list
-    while (positionsList.length <= 11) {
-      int position = random.nextInt(12);
-      if (!positionsList.contains(position)) {
-        positionsList.add(position);
-      }
-    }
-    // for create numbers
-    for (var pos in positionsList) {
-      numberList[pos] = otherNumber;
-      otherNumber++;
-    }
-
 
     return Scaffold(
       body: SafeArea(
@@ -63,12 +66,47 @@ class _CountinkPageState extends State<CountinkPage> {
             ),
             Flexible(
               flex: 3,
-              child: GridView.count(
-                crossAxisCount: 3,
-                children: List.generate(12, (index){
-                  return customButton(text: numberList[index].toString());
-                })
-              ),
+              child: Builder(
+                builder: (context){
+                  for (var map in numberList) {
+                    var number = map.keys.toList()[0];
+                    var isCorrect = map.values.toList()[0];
+
+                    if (number == firstNumber) {
+                      widgetsList.add(
+                        gameButton(
+                          text: number.toString(),
+                          color: MyColors.blue,
+                          splashColor: MyColors.blue,
+                          isPressed: isCorrect,
+                          onPress: () {
+                            setState(() {
+                              map[firstNumber] = true;
+                              firstNumber++;
+                            });
+                          },
+                        ),
+                      );
+                    } else {
+                      widgetsList.add(gameButton(
+                        text: number.toString(),
+                        splashColor: MyColors.red,
+                        color: MyColors.blue,
+                        isPressed: isCorrect,
+                        onPress: () {},
+                      ));
+                    }
+                  }
+
+                  return GridView.count(
+                    childAspectRatio: 1.1,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
+                    crossAxisCount: 3,
+                    children: List.of(widgetsList), //todo : باید یک لیست از ویجت ها درست کنم ( مثل صفحه تست) که بصورت خودکار ساخته و دسته بنید بشن این عمل باید به وسیله مپ انجام بگیره
+                  );
+                },
+              )
             )
           ],
         ),
@@ -103,4 +141,21 @@ class _CountinkPageState extends State<CountinkPage> {
       ),
     );
   }
+
+  void makeRandomNumberList() {
+      // for create random positions list
+      while (positionsList.length <= 11) {
+        int position = random.nextInt(12);
+        if (!positionsList.contains(position)) {
+          positionsList.add(position);
+        }
+      }
+      // for create numbers
+      for (var pos in positionsList) {
+        numberList[pos]={otherNumber : false};
+        otherNumber++;
+      }
+  }
+
+  void makeWidgetList(List numbers){ }
 }
