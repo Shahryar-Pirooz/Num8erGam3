@@ -46,15 +46,21 @@ Widget gameButton(
     bool isPressed = false}) {
   Color btnColor = isPressed ? color : Colors.transparent;
 
-  return FlatButton(
-    onPressed: onPress,
-    color: btnColor,
-    splashColor: splashColor,
-    child: Container(
-      margin: EdgeInsets.all(10),
-      child: Text(
-        text,
-        style: GoogleFonts.luckiestGuy(color: MyColors.blue, fontSize: 20),
+  return Container(
+    margin: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      color: btnColor,
+    ),
+    child: FlatButton(
+      onPressed: onPress,
+      splashColor: splashColor,
+      child: Container(
+        margin: EdgeInsets.all(10),
+        child: Text(
+          text,
+          style: GoogleFonts.luckiestGuy(color: MyColors.blue, fontSize: 20),
+        ),
       ),
     ),
   );

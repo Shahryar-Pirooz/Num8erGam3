@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:numbergame/src/colors.dart';
 import 'package:numbergame/src/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -15,9 +16,12 @@ class _CountinkPageState extends State<CountinkPage> {
  final Random random = new Random();
  final List positionsList = [];
  List<Widget> widgetsList;
- List<Map<int,bool>> numberList = new List(12);
+ List<Map<int,bool>> numberList = new List(9);
   int firstNumber;
   int otherNumber;
+  int score;
+  int _start = 10;
+  Timer _timer;
 
  @override
   void initState() {
@@ -30,26 +34,29 @@ class _CountinkPageState extends State<CountinkPage> {
    firstNumber = random.nextInt(99);
    otherNumber = firstNumber;
    makeRandomNumberList();
+   score = 0;
+   startTimer();
   }
 
   @override
   Widget build(BuildContext context) {
    widgetsList = [];
+   final double width = MediaQuery. of(context). size. width;
+   final double height = MediaQuery. of(context). size. height;
+
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         if (sizingInformation.deviceScreenType == DeviceScreenType.mobile)
-          return mobile(context);
+          return mobile(context , width, height);
         else if (sizingInformation.deviceScreenType == DeviceScreenType.desktop)
-          return desktop(context);
+          return desktop(context , width , height);
         else
-          return Container(
-            color: Colors.green,
-          );
+          return desktop(context , width , height);
       },
     );
   }
 
-  Widget mobile(BuildContext context) {
+  Widget mobile(BuildContext context , double width , double height) {
 
     return Scaffold(
       body: SafeArea(
@@ -58,13 +65,32 @@ class _CountinkPageState extends State<CountinkPage> {
             Flexible(
               flex: 1,
               child: Container(
-                  margin: EdgeInsets.all(50),
-                  child: Hero(
-                    child: headerText(" NUM8ER \n GAM3 ", size: 25),
-                    tag: "numberGame",
-                  )),
+                margin: EdgeInsets.only(top: 65 , bottom: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Hero(
+                        child: headerText(" NUM8ER \n GAM3 ", size: 25),
+                        tag: "numberGame",
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          headerText(_start.toString(),size: 25),
+                          headerText(score.toString(),size: 25)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-            Flexible(
+            Expanded(
               flex: 3,
               child: Builder(
                 builder: (context){
@@ -72,38 +98,46 @@ class _CountinkPageState extends State<CountinkPage> {
                     var number = map.keys.toList()[0];
                     var isCorrect = map.values.toList()[0];
 
-                    if (number == firstNumber) {
-                      widgetsList.add(
-                        gameButton(
+                    if(widgetsList.length < 9){
+                      if (number == firstNumber) {
+                        widgetsList.add(
+                          gameButton(
+                            text: number.toString(),
+                            color: MyColors.blue,
+                            splashColor: MyColors.blue,
+                            isPressed: isCorrect,
+                            onPress: () {
+                              setState(() {
+                                map[firstNumber] = true;
+                                firstNumber++;
+                                score++;
+                              });
+                            },
+                          ),
+                        );
+                      } else {
+                        widgetsList.add(gameButton(
                           text: number.toString(),
+                          splashColor: MyColors.red,
                           color: MyColors.blue,
-                          splashColor: MyColors.blue,
                           isPressed: isCorrect,
                           onPress: () {
-                            setState(() {
-                              map[firstNumber] = true;
-                              firstNumber++;
-                            });
+                            setState(()=> score--);
                           },
-                        ),
-                      );
-                    } else {
-                      widgetsList.add(gameButton(
-                        text: number.toString(),
-                        splashColor: MyColors.red,
-                        color: MyColors.blue,
-                        isPressed: isCorrect,
-                        onPress: () {},
-                      ));
+                        ));
+                      }
                     }
-                  }
 
+                  }
+                  final double itemHeight =height/3.8;
+                  final double itemWidth = width / 3;
                   return GridView.count(
-                    childAspectRatio: 1.1,
+                    shrinkWrap: false,
+                    childAspectRatio: (itemWidth / itemHeight),
                     mainAxisSpacing: 5,
                     crossAxisSpacing: 5,
                     crossAxisCount: 3,
-                    children: List.of(widgetsList), //todo : باید یک لیست از ویجت ها درست کنم ( مثل صفحه تست) که بصورت خودکار ساخته و دسته بنید بشن این عمل باید به وسیله مپ انجام بگیره
+                    children: List.of(widgetsList),
                   );
                 },
               )
@@ -114,28 +148,99 @@ class _CountinkPageState extends State<CountinkPage> {
     );
   }
 
-  Widget desktop(BuildContext context) {
+  Widget desktop(BuildContext context , double width , double height) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: Row(
           children: [
+           Spacer(flex: 1,),
             Flexible(
-              flex: 1,
-              child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  margin: EdgeInsets.all(10),
-                  child: Hero(
-                    child: headerText(" NUM8ER \n GAM3 ", size: 25),
-                    tag: "numberGame",
-                  )),
-            ),
-            Flexible(
-              flex: 5,
-              child: Container(
-                color: MyColors.red,
+              flex: 2,
+              child: Column(
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 65 , bottom: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Hero(
+                              child: headerText(" NUM8ER \n GAM3 ", size: 25),
+                              tag: "numberGame",
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                headerText(_start.toString(),size: 25),
+                                headerText(score.toString(),size: 25)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 3,
+                      child: Builder(
+                        builder: (context){
+                          for (var map in numberList) {
+                            var number = map.keys.toList()[0];
+                            var isCorrect = map.values.toList()[0];
+
+                           if(widgetsList.length < 9){
+                             if (number == firstNumber) {
+                               widgetsList.add(
+                                 gameButton(
+                                   text: number.toString(),
+                                   color: MyColors.blue,
+                                   splashColor: MyColors.blue,
+                                   isPressed: isCorrect,
+                                   onPress: () {
+                                     setState(() {
+                                       map[firstNumber] = true;
+                                       firstNumber++;
+                                       score++;
+                                     });
+                                   },
+                                 ),
+                               );
+                             } else {
+                               widgetsList.add(gameButton(
+                                 text: number.toString(),
+                                 splashColor: MyColors.red,
+                                 color: MyColors.blue,
+                                 isPressed: isCorrect,
+                                 onPress: () {
+                                   setState(()=> score--);
+                                 },
+                               ));
+                             }
+                           }
+                          }
+                         final double itemHeight = height/3;
+                         final double itemWidth = width/4.6;
+                          return GridView.count(
+                            shrinkWrap: false,
+                            childAspectRatio: (itemWidth / itemHeight),
+                            mainAxisSpacing: 5,
+                            crossAxisSpacing: 5,
+                            crossAxisCount: 3,
+                            children: List.of(widgetsList),
+                          );
+                        },
+                      )
+                  )
+                ],
               ),
-            )
+            ),
+            Spacer(flex: 1,)
           ],
         ),
       ),
@@ -144,8 +249,8 @@ class _CountinkPageState extends State<CountinkPage> {
 
   void makeRandomNumberList() {
       // for create random positions list
-      while (positionsList.length <= 11) {
-        int position = random.nextInt(12);
+      while (positionsList.length <= 8) {
+        int position = random.nextInt(9);
         if (!positionsList.contains(position)) {
           positionsList.add(position);
         }
@@ -156,6 +261,26 @@ class _CountinkPageState extends State<CountinkPage> {
         otherNumber++;
       }
   }
+ void startTimer() {
+   const oneSec = const Duration(seconds: 1);
+   _timer = new Timer.periodic(
+     oneSec,
+         (Timer timer) => setState(
+           () {
+         if (_start < 1) {
+           timer.cancel();
+         } else {
+           _start = _start - 1;
+         }
+       },
+     ),
+   );
+ }
 
-  void makeWidgetList(List numbers){ }
+ @override
+ void dispose() {
+   _timer.cancel();
+   super.dispose();
+ }
+
 }
