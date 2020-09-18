@@ -20,6 +20,7 @@ class _CountinkPageState extends State<CountinkPage> {
   List<Map<int, bool>> numberList = new List(9);
   int firstNumber;
   int otherNumber;
+  int correctsCounter;
   int score;
   int _start = 10;
   Timer _timer;
@@ -44,6 +45,7 @@ class _CountinkPageState extends State<CountinkPage> {
     otherNumber = firstNumber;
     makeRandomNumberList();
     score = 0;
+    correctsCounter = 0;
     startTimer();
   }
 
@@ -116,9 +118,16 @@ class _CountinkPageState extends State<CountinkPage> {
                               isPressed: isCorrect,
                               onPress: () {
                                 setState(() {
-                                  map[firstNumber] = true;
-                                  firstNumber++;
-                                  score++;
+                                  if (correctsCounter == 8) {
+                                    score++;
+                                    countinkPageDialog(context, true,
+                                        height: height, width: width);
+                                  } else {
+                                    map[firstNumber] = true;
+                                    firstNumber++;
+                                    score++;
+                                    correctsCounter++;
+                                  }
                                 });
                               },
                             ),
@@ -212,9 +221,16 @@ class _CountinkPageState extends State<CountinkPage> {
                                     isPressed: isCorrect,
                                     onPress: () {
                                       setState(() {
-                                        map[firstNumber] = true;
-                                        firstNumber++;
-                                        score++;
+                                        if (correctsCounter == 8) {
+                                          score++;
+                                          countinkPageDialog(context, true,
+                                              height: height, width: width);
+                                        } else {
+                                          map[firstNumber] = true;
+                                          firstNumber++;
+                                          score++;
+                                          correctsCounter++;
+                                        }
                                       });
                                     },
                                   ),
@@ -279,12 +295,76 @@ class _CountinkPageState extends State<CountinkPage> {
         () {
           if (_start < 1) {
             timer.cancel();
+            countinkPageDialog(context, false);
           } else {
             _start = _start - 1;
           }
         },
       ),
     );
+  }
+
+  void countinkPageDialog(context, bool isWin,
+      {double height = double.infinity, double width = double.infinity}) {
+    final double dialogHeight = height / 2;
+    final double dialogWidth = width / 2;
+    Dialog _dialog;
+    if (isWin) {
+      _start = 100;
+      _dialog = Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: EdgeInsets.all(16),
+          height: dialogHeight,
+          width: dialogWidth,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15), color: MyColors.black),
+          child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  headerText("You're won\nYour Score : $score ", size: 40),
+                  Spacer(),
+                  customButton(
+                      text: "Ok",
+                      onPress: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      })
+                ]),
+          ),
+        ),
+      );
+    } else {
+      _dialog = Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: EdgeInsets.all(16),
+          height: dialogHeight,
+          width: dialogWidth,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15), color: MyColors.red),
+          child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  headerText("Timeout .... !\nYour Score : $score ", size: 40),
+                  Spacer(),
+                  customButton(
+                      text: "Ok",
+                      onPress: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      })
+                ]),
+          ),
+        ),
+      );
+    }
+
+    showDialog(context: context, builder: (context) => _dialog);
   }
 
   @override

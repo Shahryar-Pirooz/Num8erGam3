@@ -40,7 +40,7 @@ class HomeApp extends StatelessWidget {
   //Show welcome dialog
   void countinkPageDialog(context,
       {double height = double.infinity, double width = double.infinity}) {
-    final double dialogHeight = height / 3;
+    final double dialogHeight = height / 2;
     final double dialogWidth = width / 2;
 
     Dialog _dialog = Dialog(
@@ -56,22 +56,30 @@ class HomeApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                headerText(
-                    "Hey there guys! The rules of this game are super" +
-                        " simple,\nYou have 10 seconds to find the lowest number and " +
-                        "then you have to count towards the larger numbers until the" +
-                        " table is complete!",
-                    size: 20),
+                Flexible(
+                  flex: 2,
+                  child: SingleChildScrollView(
+                    child: headerText(
+                        "Hey there guys! The rules of this game are super" +
+                            " simple,\nYou have 10 seconds to find the lowest number and " +
+                            "then you have to count towards the larger numbers until the" +
+                            " table is complete!",
+                        size: 20),
+                  ),
+                ),
                 Spacer(),
-                customButton(
-                    text: "Let's GO",
-                    onPress: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CountinkPage()));
-                    })
+                Flexible(
+                  flex: 1,
+                  child: customButton(
+                      text: "Let's GO",
+                      onPress: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CountinkPage()));
+                      }),
+                )
               ]),
         ),
       ),
