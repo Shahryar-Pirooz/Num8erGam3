@@ -44,11 +44,14 @@ Widget gameButton(
     Color splashColor = Colors.transparent,
     Color color,
     bool isPressed = false}) {
-  Color btnColor = isPressed ? color : Colors.transparent;
+  Color btnColor = isPressed ? color : MyColors.black;
 
   return Container(
     margin: EdgeInsets.all(16),
     decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(blurRadius: 5, color: MyColors.blueDark, offset: Offset(2, 5))
+      ],
       borderRadius: BorderRadius.all(Radius.circular(10)),
       color: btnColor,
     ),

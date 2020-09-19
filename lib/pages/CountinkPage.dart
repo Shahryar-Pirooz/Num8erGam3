@@ -23,6 +23,8 @@ class _CountinkPageState extends State<CountinkPage> {
   int correctsCounter;
   int score;
   int _start = 10;
+  double width;
+  double height;
   Timer _timer;
 
   @override
@@ -47,13 +49,14 @@ class _CountinkPageState extends State<CountinkPage> {
     score = 0;
     correctsCounter = 0;
     startTimer();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     widgetsList = [];
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
 
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
@@ -71,9 +74,10 @@ class _CountinkPageState extends State<CountinkPage> {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(
-              flex: 1,
+              flex: 2,
               child: Container(
                 margin: EdgeInsets.only(top: 65, bottom: 30),
                 child: Row(
@@ -100,8 +104,8 @@ class _CountinkPageState extends State<CountinkPage> {
                 ),
               ),
             ),
-            Expanded(
-                flex: 3,
+            Flexible(
+                flex: 4,
                 child: Builder(
                   builder: (context) {
                     for (var map in numberList) {
@@ -118,16 +122,12 @@ class _CountinkPageState extends State<CountinkPage> {
                               isPressed: isCorrect,
                               onPress: () {
                                 setState(() {
-                                  if (correctsCounter == 8) {
-                                    score++;
-                                    countinkPageDialog(context, true,
-                                        height: height, width: width);
-                                  } else {
-                                    map[firstNumber] = true;
-                                    firstNumber++;
-                                    score++;
-                                    correctsCounter++;
-                                  }
+                                  if (correctsCounter == 8)
+                                    countinkPageDialog(context, "You're won");
+                                  map[firstNumber] = true;
+                                  firstNumber++;
+                                  score++;
+                                  correctsCounter++;
                                 });
                               },
                             ),
@@ -145,15 +145,17 @@ class _CountinkPageState extends State<CountinkPage> {
                         }
                       }
                     }
-                    final double itemHeight = height / 3.8;
-                    final double itemWidth = width / 3;
-                    return GridView.count(
-                      shrinkWrap: false,
-                      childAspectRatio: (itemWidth / itemHeight),
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5,
-                      crossAxisCount: 3,
-                      children: List.of(widgetsList),
+                    return SizedBox(
+                      height: width - 32,
+                      width: width - 32,
+                      child: GridView.count(
+                        shrinkWrap: false,
+                        childAspectRatio: 1,
+                        mainAxisSpacing: 1,
+                        crossAxisSpacing: 1,
+                        crossAxisCount: 3,
+                        children: List.of(widgetsList),
+                      ),
                     );
                   },
                 ))
@@ -223,8 +225,8 @@ class _CountinkPageState extends State<CountinkPage> {
                                       setState(() {
                                         if (correctsCounter == 8) {
                                           score++;
-                                          countinkPageDialog(context, true,
-                                              height: height, width: width);
+                                          countinkPageDialog(
+                                              context, "You're won");
                                         } else {
                                           map[firstNumber] = true;
                                           firstNumber++;
@@ -295,7 +297,7 @@ class _CountinkPageState extends State<CountinkPage> {
         () {
           if (_start < 1) {
             timer.cancel();
-            countinkPageDialog(context, false);
+            countinkPageDialog(context, "Times up");
           } else {
             _start = _start - 1;
           }
@@ -304,66 +306,36 @@ class _CountinkPageState extends State<CountinkPage> {
     );
   }
 
-  void countinkPageDialog(context, bool isWin,
-      {double height = double.infinity, double width = double.infinity}) {
+  void countinkPageDialog(context, String message) {
     final double dialogHeight = height / 2;
     final double dialogWidth = width / 2;
     Dialog _dialog;
-    if (isWin) {
-      _start = 100;
-      _dialog = Dialog(
-        backgroundColor: Colors.transparent,
-        child: Container(
-          padding: EdgeInsets.all(16),
-          height: dialogHeight,
-          width: dialogWidth,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15), color: MyColors.black),
-          child: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  headerText("You're won\nYour Score : $score ", size: 40),
-                  Spacer(),
-                  customButton(
-                      text: "Ok",
-                      onPress: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      })
-                ]),
-          ),
+    _start = 100;
+    _dialog = Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        height: dialogHeight,
+        width: dialogWidth,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: MyColors.black),
+        child: Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                headerText("$message\nYour Score : $score ", size: 40),
+                Spacer(),
+                customButton(
+                    text: "Ok",
+                    onPress: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    })
+              ]),
         ),
-      );
-    } else {
-      _dialog = Dialog(
-        backgroundColor: Colors.transparent,
-        child: Container(
-          padding: EdgeInsets.all(16),
-          height: dialogHeight,
-          width: dialogWidth,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15), color: MyColors.red),
-          child: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  headerText("Timeout .... !\nYour Score : $score ", size: 40),
-                  Spacer(),
-                  customButton(
-                      text: "Ok",
-                      onPress: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      })
-                ]),
-          ),
-        ),
-      );
-    }
-
+      ),
+    );
     showDialog(context: context, builder: (context) => _dialog);
   }
 
