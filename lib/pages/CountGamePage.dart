@@ -3,17 +3,16 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:numbergame/src/colors.dart';
 import 'package:numbergame/src/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-class CountinkPage extends StatefulWidget {
+class CountGamePage extends StatefulWidget {
   @override
-  _CountinkPageState createState() => _CountinkPageState();
+  _CountGamePageState createState() => _CountGamePageState();
 }
 
-class _CountinkPageState extends State<CountinkPage> {
+class _CountGamePageState extends State<CountGamePage> {
   final Random random = new Random();
   final List positionsList = [];
   List<Widget> widgetsList;

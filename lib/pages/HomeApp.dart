@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:numbergame/src/colors.dart';
 import 'package:numbergame/src/widgets.dart';
 
-import 'CountinkPage.dart';
+import 'CountGamePage.dart';
 
 class HomeApp extends StatelessWidget {
   @override
@@ -29,7 +29,7 @@ class HomeApp extends StatelessWidget {
                   onPress: () {
                     countinkPageDialog(context, width: width, height: height);
                   },
-                  text: "Countink",
+                  text: "CountGame",
                 )
               ],
             )),
@@ -77,7 +77,7 @@ class HomeApp extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CountinkPage()));
+                                builder: (context) => CountGamePage()));
                       }),
                 )
               ]),
