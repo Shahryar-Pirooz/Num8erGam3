@@ -29,13 +29,26 @@ class HomeApp extends StatelessWidget {
                   onPress: () {
                     countinkPageDialog(context, width: width, height: height);
                   },
-                  text: "CountGame",
+                  text: "Count Game",
+                ),
+                Builder(
+                  builder: (context) => customButton(
+                      onPress: () {
+                        Scaffold.of(context)
+                            .showSnackBar(snackBar("Coming soon"));
+                      },
+                      text: "Calc Game"),
                 )
               ],
             )),
       ),
     );
   }
+
+  SnackBar snackBar(String message) => SnackBar(
+        backgroundColor: MyColors.red,
+        content: Text(message),
+      );
 
   //Show welcome dialog
   void countinkPageDialog(context,
@@ -57,7 +70,7 @@ class HomeApp extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
-                  flex: 2,
+                  flex: 3,
                   child: SingleChildScrollView(
                     child: headerText(
                         "Hey there guys! The rules of this game are super" +

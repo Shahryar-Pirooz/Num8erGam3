@@ -18,7 +18,8 @@ Widget headerText(String data, {double size = 72.0}) {
 }
 
 Widget customButton(
-    {VoidCallback onPress,
+    {Key key,
+    VoidCallback onPress,
     String text = "Enter your Text",
     Color color = Colors.transparent}) {
   return Container(
