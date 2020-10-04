@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numbergame/src/colors.dart';
 import 'package:numbergame/src/widgets.dart';
@@ -38,6 +39,14 @@ class HomeApp extends StatelessWidget {
                             .showSnackBar(snackBar("Coming soon"));
                       },
                       text: "Calc Game"),
+                ),
+                Builder(
+                  builder: (context) => customButton(
+                      onPress: () {
+                        Scaffold.of(context)
+                            .showSnackBar(snackBar("Coming soon"));
+                      },
+                      text: "Memo Game"),
                 )
               ],
             )),
