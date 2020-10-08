@@ -309,7 +309,7 @@ class _CountGamePageState extends State<CountGamePage> {
     final double dialogHeight = height / 2;
     final double dialogWidth = width / 2;
     Dialog _dialog;
-    _start = 100;
+    _timer.cancel();
     _dialog = Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -335,7 +335,10 @@ class _CountGamePageState extends State<CountGamePage> {
         ),
       ),
     );
-    showDialog(context: context, builder: (context) => _dialog);
+    showDialog(
+        context: context,
+        builder: (context) => _dialog,
+        barrierDismissible: false);
   }
 
   @override
