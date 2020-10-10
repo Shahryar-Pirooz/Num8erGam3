@@ -44,7 +44,7 @@ class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: headerText('10'),
+      child: myText('10'),
     );
   }
 

@@ -84,7 +84,7 @@ class _CountGamePageState extends State<CountGamePage> {
                   children: [
                     Expanded(
                       child: Hero(
-                        child: headerText(" NUM8ER \n GAM3 ", size: 25),
+                        child: myText(" NUM8ER \n GAM3 ", size: 25),
                         tag: "numberGame",
                       ),
                     ),
@@ -94,8 +94,8 @@ class _CountGamePageState extends State<CountGamePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          headerText(_start.toString(), size: 25),
-                          headerText(score.toString(), size: 25)
+                          myText(_start.toString(), size: 25),
+                          myText(score.toString(), size: 25)
                         ],
                       ),
                     )
@@ -185,7 +185,7 @@ class _CountGamePageState extends State<CountGamePage> {
                         children: [
                           Expanded(
                             child: Hero(
-                              child: headerText(" NUM8ER \n GAM3 ", size: 25),
+                              child: myText(" NUM8ER \n GAM3 ", size: 25),
                               tag: "numberGame",
                             ),
                           ),
@@ -195,8 +195,8 @@ class _CountGamePageState extends State<CountGamePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                headerText(_start.toString(), size: 25),
-                                headerText(score.toString(), size: 25)
+                                myText(_start.toString(), size: 25),
+                                myText(score.toString(), size: 25)
                               ],
                             ),
                           )
@@ -323,7 +323,7 @@ class _CountGamePageState extends State<CountGamePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                headerText("$message\nYour Score : $score ", size: 40),
+                myText("$message\nYour Score : $score ", size: 40),
                 Spacer(),
                 customButton(
                     text: "Ok",

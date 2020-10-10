@@ -23,7 +23,7 @@ class HomeApp extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: Hero(
-                      child: headerText(" NUM8ER \n GAM3 "),
+                      child: myText(" NUM8ER \n GAM3 "),
                       tag: "numberGame",
                     )),
                 customButton(
@@ -81,7 +81,7 @@ class HomeApp extends StatelessWidget {
                 Flexible(
                   flex: 3,
                   child: SingleChildScrollView(
-                    child: headerText(
+                    child: myText(
                         "Hey there guys! The rules of this game are super" +
                             " simple,\nYou have 10 seconds to find the lowest number and " +
                             "then you have to count towards the larger numbers until the" +

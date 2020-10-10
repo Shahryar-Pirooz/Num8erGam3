@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numbergame/src/colors.dart';
 
-Widget headerText(String data, {double size = 72.0}) {
+Widget myText(String data, {double size = 72.0}) {
   return Text(
     data,
     textAlign: TextAlign.center,
