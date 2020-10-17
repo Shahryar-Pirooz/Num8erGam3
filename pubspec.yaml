@@ -22,7 +22,6 @@ environment:
 
 dependencies:
   google_fonts: ^1.1.0
-  http: ^0.12.2
   responsive_builder: ^0.2.0+2
   flutter:
     sdk: flutter
