@@ -61,7 +61,7 @@ class HomeApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flexible(
+                Expanded(
                   flex: 3,
                   child: SingleChildScrollView(
                     child: myText(
@@ -72,8 +72,7 @@ class HomeApp extends StatelessWidget {
                         size: 20),
                   ),
                 ),
-                Spacer(),
-                Flexible(
+                Expanded(
                   flex: 1,
                   child: customButton(
                       text: "Let's GO",

@@ -48,7 +48,7 @@ Widget gameButton(
   Color btnColor = isPressed ? color : MyColors.black;
 
   return Container(
-    margin: EdgeInsets.all(16),
+    margin: EdgeInsets.all(8),
     decoration: BoxDecoration(
       boxShadow: [
         BoxShadow(blurRadius: 5, color: MyColors.blueDark, offset: Offset(2, 5))
@@ -59,12 +59,10 @@ Widget gameButton(
     child: FlatButton(
       onPressed: onPress,
       splashColor: splashColor,
-      child: Container(
-        margin: EdgeInsets.all(10),
-        child: Text(
-          text,
-          style: GoogleFonts.luckiestGuy(color: MyColors.blue, fontSize: 20),
-        ),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.luckiestGuy(color: MyColors.blue, fontSize: 39),
       ),
     ),
   );

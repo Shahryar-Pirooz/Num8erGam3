@@ -42,7 +42,7 @@ class _CountGamePageState extends State<CountGamePage> {
       {0: false},
       {0: false}
     ];
-    firstNumber = random.nextInt(99);
+    firstNumber = random.nextInt(90);
     otherNumber = firstNumber;
     makeRandomNumberList();
     score = 0;
@@ -126,7 +126,8 @@ class _CountGamePageState extends State<CountGamePage> {
                                   score++;
                                   correctsCounter++;
                                   if (correctsCounter == 9) {
-                                    score *= _start;
+                                    if (_start > 1 && score > 1)
+                                      score *= _start;
                                     countinkPageDialog(context, "You're won");
                                   }
                                 });
@@ -229,7 +230,8 @@ class _CountGamePageState extends State<CountGamePage> {
                                         score++;
                                         correctsCounter++;
                                         if (correctsCounter == 9) {
-                                          score *= _start;
+                                          if (_start > 1 && score > 1)
+                                            score *= _start;
                                           countinkPageDialog(
                                               context, "You're won");
                                         }
