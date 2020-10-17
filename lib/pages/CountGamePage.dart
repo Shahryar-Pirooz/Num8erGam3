@@ -121,12 +121,14 @@ class _CountGamePageState extends State<CountGamePage> {
                               isPressed: isCorrect,
                               onPress: () {
                                 setState(() {
-                                  if (correctsCounter == 8)
-                                    countinkPageDialog(context, "You're won");
                                   map[firstNumber] = true;
                                   firstNumber++;
                                   score++;
                                   correctsCounter++;
+                                  if (correctsCounter == 9) {
+                                    score *= _start;
+                                    countinkPageDialog(context, "You're won");
+                                  }
                                 });
                               },
                             ),
@@ -222,15 +224,14 @@ class _CountGamePageState extends State<CountGamePage> {
                                     isPressed: isCorrect,
                                     onPress: () {
                                       setState(() {
-                                        if (correctsCounter == 8) {
-                                          score++;
+                                        map[firstNumber] = true;
+                                        firstNumber++;
+                                        score++;
+                                        correctsCounter++;
+                                        if (correctsCounter == 9) {
+                                          score *= _start;
                                           countinkPageDialog(
                                               context, "You're won");
-                                        } else {
-                                          map[firstNumber] = true;
-                                          firstNumber++;
-                                          score++;
-                                          correctsCounter++;
                                         }
                                       });
                                     },
