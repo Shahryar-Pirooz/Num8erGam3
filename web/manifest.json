@@ -1,13 +1,13 @@
 {
-    "name": "number_game",
-    "short_name": "number_game",
+    "name": "Num8erGam3",
+    "short_name": "Num8erGam3",
     "start_url": ".",
-    "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "display": "fullscreen",
+    "background_color": "#1B262C",
+    "theme_color": "#3282B8",
+    "description": "Number game in flutter",
     "orientation": "portrait-primary",
-    "prefer_related_applications": false,
+    "prefer_related_applications": true,
     "icons": [
         {
             "src": "icons/Icon-192.png",
