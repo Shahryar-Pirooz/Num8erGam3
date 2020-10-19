@@ -22,7 +22,9 @@ class HomeApp extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: Hero(
-                      child: myText(" NUM8ER \n GAM3 "),
+                      child: Material(
+                          color: Colors.transparent,
+                          child: myText(" NUM8ER \n GAM3 ")),
                       tag: "numberGame",
                     )),
                 customButton(

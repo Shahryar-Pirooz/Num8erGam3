@@ -84,7 +84,9 @@ class _CountGamePageState extends State<CountGamePage> {
                   children: [
                     Expanded(
                       child: Hero(
-                        child: myText(" NUM8ER \n GAM3 ", size: 25),
+                        child: Material(
+                            color: Colors.transparent,
+                            child: myText(" NUM8ER \n GAM3 ", size: 25)),
                         tag: "numberGame",
                       ),
                     ),
