@@ -22,14 +22,12 @@ class HomeApp extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: Hero(
-                      child: Material(
-                          color: Colors.transparent,
-                          child: myText(" NUM8ER \n GAM3 ")),
+                      child: Material(child: myText(" NUM8ER \n GAM3 "), type: MaterialType.transparency,),
                       tag: "numberGame",
                     )),
                 customButton(
                   onPress: () {
-                    countinkPageDialog(context, width: width, height: height);
+                    countGameDialog(context, width: width, height: height);
                   },
                   text: "Start",
                 ),
@@ -40,12 +38,12 @@ class HomeApp extends StatelessWidget {
   }
 
   SnackBar snackBar(String message) => SnackBar(
-        backgroundColor: MyColors.red,
+        backgroundColor: MyColors.secondary,
         content: Text(message),
       );
 
   //Show welcome dialog
-  void countinkPageDialog(context,
+  void countGameDialog(context,
       {double height = double.infinity, double width = double.infinity}) {
     final double dialogHeight = height / 2;
     final double dialogWidth = width / 2;

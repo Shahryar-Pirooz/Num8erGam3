@@ -8,12 +8,13 @@ Widget myText(String data, {double size = 72.0}) {
   return Text(
     data,
     textAlign: TextAlign.center,
-    style: GoogleFonts.luckiestGuy(
+    style: GoogleFonts.anton(
         color: MyColors.blue,
         fontSize: size,
-        shadows: <Shadow>[
-          Shadow(color: MyColors.blueDark, offset: Offset(3, 3))
-        ]),
+        // shadows: <Shadow>[
+        //   Shadow(color: MyColors.blue[700], offset: Offset(3, 3))
+        // ]
+      ),
   );
 }
 
@@ -24,15 +25,24 @@ Widget customButton(
     Color color = Colors.transparent}) {
   return Container(
     margin: EdgeInsets.all(10),
-    child: FlatButton(
+    child: TextButton(
       onPressed: onPress,
-      color: MyColors.blue,
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.pressed)) {
+          return MyColors.blue[900];
+        } else if (states.contains(MaterialState.hovered)) {
+          return MyColors.blue[600];
+        } else {
+          return MyColors.blue;
+        }
+      })),
       child: Container(
         margin: EdgeInsets.all(10),
         child: Text(
           text,
           style:
-              GoogleFonts.luckiestGuy(color: MyColors.blueLight, fontSize: 20),
+              GoogleFonts.anton(color: MyColors.blue[100], fontSize: 20),
         ),
       ),
     ),
@@ -51,18 +61,27 @@ Widget gameButton(
     margin: EdgeInsets.all(8),
     decoration: BoxDecoration(
       boxShadow: [
-        BoxShadow(blurRadius: 5, color: MyColors.blueDark, offset: Offset(2, 5))
+        BoxShadow(
+            blurRadius: 5, color: MyColors.blue[700], offset: Offset(2, 5))
       ],
       borderRadius: BorderRadius.all(Radius.circular(10)),
       color: btnColor,
     ),
-    child: FlatButton(
+    child: TextButton(
       onPressed: onPress,
-      splashColor: splashColor,
+      style: ButtonStyle(
+          overlayColor:
+              MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.pressed)){
+                  return splashColor;
+                }else{
+                  return null;
+                }
+              })),
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: GoogleFonts.luckiestGuy(color: MyColors.blue, fontSize: 39),
+        style: GoogleFonts.anton(color: MyColors.blue, fontSize: 39),
       ),
     ),
   );

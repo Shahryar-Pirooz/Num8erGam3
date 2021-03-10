@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:numbergame/src/colors.dart';
@@ -16,7 +15,7 @@ class _CountGamePageState extends State<CountGamePage> {
   final Random random = new Random();
   final List positionsList = [];
   List<Widget> widgetsList;
-  List<Map<int, bool>> numberList = new List(9);
+  List<Map<int, bool>> numberList = [];
   int firstNumber;
   int otherNumber;
   int correctsCounter;
@@ -130,7 +129,7 @@ class _CountGamePageState extends State<CountGamePage> {
                                   if (correctsCounter == 9) {
                                     if (_start > 1 && score > 1)
                                       score *= _start;
-                                    countinkPageDialog(context, "You're won");
+                                    countGameDialog(context, "You're won");
                                   }
                                 });
                               },
@@ -139,7 +138,7 @@ class _CountGamePageState extends State<CountGamePage> {
                         } else {
                           widgetsList.add(gameButton(
                             text: number.toString(),
-                            splashColor: MyColors.red,
+                            splashColor: MyColors.secondary,
                             color: MyColors.blue,
                             isPressed: isCorrect,
                             onPress: () {
@@ -177,20 +176,19 @@ class _CountGamePageState extends State<CountGamePage> {
             Spacer(
               flex: 1,
             ),
-            Flexible(
+            Expanded(
               flex: 2,
               child: Column(
                 children: [
-                  Flexible(
+                  Expanded(
                     flex: 1,
                     child: Container(
-                      margin: EdgeInsets.only(top: 65, bottom: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
                             child: Hero(
-                              child: myText(" NUM8ER \n GAM3 ", size: 25),
+                              child: Material(child: myText(" NUM8ER \n GAM3 ", size: 25),type: MaterialType.transparency,),
                               tag: "numberGame",
                             ),
                           ),
@@ -200,8 +198,8 @@ class _CountGamePageState extends State<CountGamePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                myText(_start.toString(), size: 25),
-                                myText(score.toString(), size: 25)
+                                myText(_start.toString(), size: 20),
+                                myText(score.toString(), size: 20)
                               ],
                             ),
                           )
@@ -234,7 +232,7 @@ class _CountGamePageState extends State<CountGamePage> {
                                         if (correctsCounter == 9) {
                                           if (_start > 1 && score > 1)
                                             score *= _start;
-                                          countinkPageDialog(
+                                          countGameDialog(
                                               context, "You're won");
                                         }
                                       });
@@ -244,7 +242,7 @@ class _CountGamePageState extends State<CountGamePage> {
                               } else {
                                 widgetsList.add(gameButton(
                                   text: number.toString(),
-                                  splashColor: MyColors.red,
+                                  splashColor: MyColors.secondary,
                                   color: MyColors.blue,
                                   isPressed: isCorrect,
                                   onPress: () {
@@ -254,7 +252,7 @@ class _CountGamePageState extends State<CountGamePage> {
                               }
                             }
                           }
-                          final double itemHeight = height / 3;
+                          final double itemHeight = height / 4;
                           final double itemWidth = width / 4.6;
                           return GridView.count(
                             shrinkWrap: false,
@@ -301,7 +299,7 @@ class _CountGamePageState extends State<CountGamePage> {
         () {
           if (_start < 1) {
             timer.cancel();
-            countinkPageDialog(context, "Times up");
+            countGameDialog(context, "Times up");
           } else {
             _start = _start - 1;
           }
@@ -310,7 +308,7 @@ class _CountGamePageState extends State<CountGamePage> {
     );
   }
 
-  void countinkPageDialog(context, String message) {
+  void countGameDialog(context, String message) {
     final double dialogHeight = height / 2;
     final double dialogWidth = width / 2;
     Dialog _dialog;
