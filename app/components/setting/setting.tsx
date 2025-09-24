@@ -15,7 +15,7 @@ export default function Setting({ callback }: Props) {
 	}
 	return (
 		<>
-			<div className='flex flex-col h-screen w-screen justify-center items-center space-y-4'>
+			<div className='flex flex-col size-full h-screen justify-center items-center space-y-4'>
 				<Logo />
 				<div className='flex flex-row gap-4'>
 					<Btn

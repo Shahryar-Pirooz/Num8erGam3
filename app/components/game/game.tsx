@@ -23,7 +23,7 @@ export default function Game() {
 	}
 
 	return (
-		<div className='flex h-screen w-screen bg-background justify-center items-center mx-auto flex-col space-y-10'>
+		<div className='flex size-full h-screen  bg-background justify-center items-center mx-auto flex-col space-y-10'>
 			<Logo />
 			<Pad
 				numbers={list}
