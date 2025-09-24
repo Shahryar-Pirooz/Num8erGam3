@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Num8erGam3 🎲
 
-## Getting Started
+Num8erGam3 is a simple but addictive number puzzle built with **Next.js** and **TypeScript**.  
+The goal: **find the correct number in sequence until the grid is complete**.  
 
-First, run the development server:
+Players must select numbers in the right order as quickly as possible.  
+Wrong selections add mistakes to your score — so be careful!
+
+---
+
+## 🚀 Features
+- ⚡ Built with **Next.js** + **TypeScript**
+- 🎮 Play on desktop or mobile
+- 🔄 Randomly shuffled grids for replayability
+- ⏱️ Timer & mistake counter
+- 💾 Local high-score persistence
+- ♿ Accessible (keyboard + screen-reader friendly)
+- 🔀 Restart & shuffle anytime
+
+---
+
+## 🕹️ How to Play
+1. Open the game in your browser.
+2. The target number is shown on top (`Next: X`).
+3. Tap/click the correct number in the grid.
+4. Continue until all numbers are selected in sequence.
+5. Try to finish as fast as possible with **zero mistakes**.
+
+---
+
+## 🖼️ Screenshots
+*(Add a screenshot or GIF of your game here)*
+
+---
+
+## 🎨 Color Themes
+Num8erGam3 supports both **Light** and **Dark** themes.  
+See [Theme Colors](#-theme-colors) below for details.
+
+---
+
+## 🛠️ Development
+Clone the repo and install dependencies:
 
 ```bash
+git clone https://github.com/<your-username>/Num8erGam3.git
+cd Num8erGam3
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+````
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Deployment
 
-## Learn More
+* **Vercel** (recommended for Next.js)
+* Or self-host with Docker + Nginx
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧪 Testing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+We recommend:
 
-## Deploy on Vercel
+* **Unit tests**: Jest + React Testing Library
+* **E2E tests**: Playwright
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 License
+
+MIT License — feel free to use, share, and improve 🎉
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome!
+For major changes, please open an issue first to discuss.
+
+---
