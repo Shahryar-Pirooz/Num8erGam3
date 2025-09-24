@@ -13,7 +13,7 @@ export default function Game() {
 	const { LevelCtx: size } = useContext(LevelCtx)
 	const n = randomGenerator(100)
 
-	const list = Array.from({ length: 9 }, (_, i) => {
+	const list = Array.from({ length: size * size }, (_, i) => {
 		return n + i
 	})
 
