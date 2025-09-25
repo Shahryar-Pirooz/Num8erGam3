@@ -6,6 +6,13 @@ interface Props {
 }
 
 export default function Pad({ numbers, size }: Props) {
+	const answer = Array.from(numbers).sort()
+	const clickHandlers = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (answer[0].toString() === e.currentTarget.id) {
+			e.currentTarget.classList.add('bg-foreground', 'text-background')
+			answer.shift()
+		}
+	}
 	return (
 		<div
 			className='grid gap-2'
@@ -16,7 +23,7 @@ export default function Pad({ numbers, size }: Props) {
 					<Btn
 						key={i}
 						text={`${n}`}
-						callback={() => {}}
+						callback={clickHandlers}
 					/>
 				)
 			})}
