@@ -71,7 +71,7 @@ We recommend:
 
 ## 📜 License
 
-MIT License — feel free to use, share, and improve 🎉
+[MIT License](https://github.com/Shahryar-Pirooz/Num8erGam3/blob/f87177cd1267819e0670cafcc30ce1619bb52a23/LICENSE) — feel free to use, share, and improve 🎉
 
 ---
 
