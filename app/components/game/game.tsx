@@ -5,7 +5,7 @@ import Pad from '../pad/pad'
 import { useContext } from 'react'
 import { LevelCtx } from '@/app/utils/context'
 
-const randomGenerator = (max: number) => {
+const randomGenerator = (max: number): number => {
 	return Math.floor(Math.random() * max)
 }
 

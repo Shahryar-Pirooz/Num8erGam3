@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function Pad({ numbers, size }: Props) {
-	const answer = Array.from(numbers).sort()
+	const answer = Array.from(numbers).sort((a, b) => a - b)
 	const clickHandlers = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (answer[0].toString() === e.currentTarget.id) {
 			e.currentTarget.classList.add('bg-foreground', 'text-background')
